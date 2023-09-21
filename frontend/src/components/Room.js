@@ -14,7 +14,6 @@ export default function Room() {
   const fetchRoomDetails = async () => {
     const response = await fetch(`/api/get-room?code=${roomCode}`);
     const data = await response.json();
-    console.log(data);
     if (data.votes_to_skip) {
       setCurrentRoom({
         votesToSkip: data.votes_to_skip,

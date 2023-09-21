@@ -10,10 +10,11 @@ import {
   RadioGroup,
   FormControlLabel,
 } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 
 export default function CreateRoomPage() {
+  const navigate = useNavigate();
   const defaultVotes = 2;
   const [guestCanPause, setGuestCanPause] = useState(true);
   const [votesToSkip, setVotesToSkip] = useState(defaultVotes);
@@ -38,7 +39,7 @@ export default function CreateRoomPage() {
     const fetchData = async () => {
       const response = await fetch("/api/create-room", requestOptions);
       const data = await response.json();
-      console.log(data);
+      navigate(`/room/${data.code}`);
       return data;
     };
 
@@ -111,12 +112,17 @@ export default function CreateRoomPage() {
             color="primary"
             variant="contained"
             onClick={handleCreateRoom}
+            style={{ marginRight: 5 }}
           >
             Create A Room
           </Button>
-        </Grid>
-        <Grid item xs={12} align="center">
-          <Button color="secondary" variant="contained" to="/" component={Link}>
+          <Button
+            color="secondary"
+            variant="contained"
+            to="/"
+            component={Link}
+            style={{ marginLeft: 10 }}
+          >
             Back
           </Button>
         </Grid>
